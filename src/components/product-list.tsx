@@ -1,3 +1,4 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { FC, useEffect, useState, use } from "react";
 
 type Product = {
@@ -9,37 +10,31 @@ type Product = {
   image: string;
 };
 
-const fetchProducts = fetch("https://fakestoreapi.com/products").then((res) =>
-  res.json()
-);
-
 const ProductList: FC = () => {
-  const products = use(fetchProducts);
-
-  // const [products, setProducts] = useState<Product[]>([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setIsLoading(true);
-  //   fetch("https://fakestoreapi.com/products")
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setIsLoading(false);
-  //       setProducts(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data: ", error);
-  //       setIsLoading(false);
-  //     });
-  // }, []);
+  const {
+    data: products,
+    // isLoading,
+    // isError,
+  } = useQuery<Product[]>({
+    queryKey: ["products"],
+    queryFn: () => {
+      return fetch("https://fakestoreapi.com/products adfaasd;f").then((res) =>
+        res.json()
+      );
+    },
+  });
 
   // if (isLoading) {
   //   return <div>Loading...</div>;
   // }
 
+  // if (isError) {
+  //   return <div className="text-red-500">Error fetching products</div>;
+  // }
+
   return (
     <>
-      {products.map((product: Product) => (
+      {products?.map((product: Product) => (
         <div key={product.id} className="bg-gray-100 p-5 rounded-lg">
           <img
             src={product.image}
