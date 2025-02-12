@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useState, use } from "react";
 
 type Product = {
   id: number;
@@ -9,27 +9,33 @@ type Product = {
   image: string;
 };
 
+const fetchProducts = fetch("https://fakestoreapi.com/products").then((res) =>
+  res.json()
+);
+
 const ProductList: FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const products = use(fetchProducts);
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch("https://fakestoreapi.com/products")
-      .then((res) => res.json())
-      .then((data) => {
-        setIsLoading(false);
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data: ", error);
-        setIsLoading(false);
-      });
-  }, []);
+  // const [products, setProducts] = useState<Product[]>([]);
+  // const [isLoading, setIsLoading] = useState(true);
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  // useEffect(() => {
+  //   setIsLoading(true);
+  //   fetch("https://fakestoreapi.com/products")
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setIsLoading(false);
+  //       setProducts(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data: ", error);
+  //       setIsLoading(false);
+  //     });
+  // }, []);
+
+  // if (isLoading) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
