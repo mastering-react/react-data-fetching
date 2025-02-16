@@ -1,1 +1,9 @@
 @import "tailwindcss";
+
+.btn {
+  @apply px-4 py-2 rounded transition-colors duration-150;
+}
+
+.btn-emerald {
+  @apply bg-emerald-500 text-white;
+}
