@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import ProductList from "./components/product-list";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "react-error-boundary";
+import InfiniteProductList from "./components/infinite-product-list";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,7 +34,7 @@ function App() {
             }
           >
             <Suspense fallback={<div>Loading From React Query...</div>}>
-              <ProductList />
+              <InfiniteProductList />
             </Suspense>
           </ErrorBoundary>
         </QueryClientProvider>
